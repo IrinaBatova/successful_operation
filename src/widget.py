@@ -1,0 +1,44 @@
+from src import masks
+
+card_or_account_number_user = "Maestro 7000792289606361"
+
+def mask_account_card(card_or_account_number:str) -> str:
+    """Функция маскировки номера банковской карты
+       :param card_or_account_number: принимает тип и номер карты или счета в виде строки
+       :return: возвращает замаскированный номер карты или счета, маску в виде строки формата: тип карты(счет) XXXX XX** **** XXXX."""
+
+    # Создаем пустые списки
+    card_or_account = []
+    number = []
+
+    # Разделяем текст и цифры по спискам
+    for symbol in card_or_account_number:
+        if symbol.isdigit():
+            number.append(symbol)
+        else:
+            card_or_account.append(symbol)
+
+    card_or_account_str = "".join(card_or_account) # преобразуем список с текстом в строку
+
+    # В зависимости от того, номер счета или номер карты разделяем по маскам
+    if card_or_account_str == "Счет ":
+        number_str = masks.get_mask_account(int("".join(number)))
+    else:
+        number_str = masks.get_mask_card_number(int("".join(number)))
+
+    return print(f"{card_or_account_str}{number_str}")
+
+date_user = "2024-03-11T02:26:18.671407"
+
+def get_date(data:str) -> str:
+    """Функция переформатирования даты
+        :param data: принимает дату в виде строки
+        :return: возвращает переформатированную дату - в виде строки
+         формата "ДД.ММ.ГГГГ" ( "11.03.2024" )."""
+
+    formatted_date = '"ДД.ММ.ГГГГ" ( "' + data[8:10] + "." + data[5:7] + "." + data[:4] + '" )'
+
+    return print(formatted_date)
+
+mask_account_card(card_or_account_number_user)
+get_date(date_user)
