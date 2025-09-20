@@ -34,6 +34,6 @@ def get_date(data: str) -> str:
     :param data: принимает дату в виде строки - 2024-03-11T02:26:18.671407
     :return: возвращает переформатированную дату - в виде строки формата "ДД.ММ.ГГГГ" ( "11.03.2024" )."""
 
-    formatted_date = '"ДД.ММ.ГГГГ" ( "' + data[8:10] + "." + data[5:7] + "." + data[:4] + '" )'
+    formatted_date = data[8:10] + "." + data[5:7] + "." + data[:4]
 
     return formatted_date
