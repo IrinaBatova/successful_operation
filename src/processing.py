@@ -27,18 +27,18 @@ def filter_by_state(list_of_dictionaries: list, state: str = "EXECUTED") -> list
 print(filter_by_state(list_of_dictionaries_user, state="CANCELED"))
 
 
-def sort_by_date(list_of_dictionaries: list, ascending: bool = False) -> list:
+def sort_by_date(list_of_dictionaries: list, ascending: bool = True) -> list:
     """Функция сортировки словарей по значению ключа "date":
     - param list_of_dictionaries: принимает список словарей;
     - param ascending: необязательный параметр, задающий порядок сортировки (по умолчанию — убывание);
     - return: возвращает новый список словарей, отсортированный по дате (date)."""
 
     if not ascending:
-        list_of_dictionaries.sort(key=lambda x: x.get("date", 0), reverse=True)
-    else:
         list_of_dictionaries.sort(key=lambda x: x.get("date", 0))
+    else:
+        list_of_dictionaries.sort(key=lambda x: x.get("date", 0), reverse=True)
 
     return list_of_dictionaries
 
 
-print(sort_by_date(list_of_dictionaries_user, ascending=True))
+print(sort_by_date(list_of_dictionaries_user, ascending=False))
