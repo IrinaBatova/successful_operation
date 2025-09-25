@@ -5,7 +5,13 @@ list_of_dictionaries_user = [
     {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
 ]
 
+
 def filter_by_state(list_of_dictionaries: list, state: str = "EXECUTED") -> list:
+    """Функция отбора словарей по значению ключа "state":
+    - param list_of_dictionaries: принимает список словарей;
+    - param state: не обязательный, принимает опционально значение для ключа state (по умолчанию 'EXECUTED');
+    - return: возвращает новый список словарей, содержащий только те словари, у которых ключ state соответствует выбранному значению.
+    """
 
     new_list_of_dictionaries = []
 
@@ -18,4 +24,21 @@ def filter_by_state(list_of_dictionaries: list, state: str = "EXECUTED") -> list
     return new_list_of_dictionaries
 
 
-print(filter_by_state(list_of_dictionaries_user, state = "CANCELED"))
+print(filter_by_state(list_of_dictionaries_user, state="CANCELED"))
+
+
+def sort_by_date(list_of_dictionaries: list, ascending: bool = False) -> list:
+    """Функция сортировки словарей по значению ключа "date":
+    - param list_of_dictionaries: принимает список словарей;
+    - param ascending: необязательный параметр, задающий порядок сортировки (по умолчанию — убывание);
+    - return: возвращает новый список словарей, отсортированный по дате (date)."""
+
+    if not ascending:
+        list_of_dictionaries.sort(key=lambda x: x.get("date", 0), reverse=True)
+    else:
+        list_of_dictionaries.sort(key=lambda x: x.get("date", 0))
+
+    return list_of_dictionaries
+
+
+print(sort_by_date(list_of_dictionaries_user, ascending=True))
