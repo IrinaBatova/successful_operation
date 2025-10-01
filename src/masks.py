@@ -5,7 +5,7 @@ def get_mask_card_number(card_number: int) -> str:
 
     card_number_str = str(card_number)  # меняем тип c числа на строку
     mask = card_number_str[:6] + "**" + "****" + card_number_str[-4:]  # формируем маску
-    return " ".join(mask[i: i + 4] for i in range(0, len(mask), 4))  # возвращаем в заданном шаблоне по 4 символа
+    return " ".join(mask[i : i + 4] for i in range(0, len(mask), 4))  # возвращаем в заданном шаблоне по 4 символа
 
 
 def get_mask_account(account_number: int) -> str:
