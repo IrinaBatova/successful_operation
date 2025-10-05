@@ -22,10 +22,15 @@ def get_mask_account(account_number: int) -> str:
     :param account_number: принимает номер счета в виде целого числа
     :return: возвращает замаскированный номер счета - маску в виде строки формата ** XXXX.
     """
+    if account_number > 0:
+        account_number_str = str(account_number)  # меняем тип c числа на строку
+        if len(account_number_str) > 6:
+            masked = "** " + account_number_str[-4:]  # формируем маску
+            return masked
+        else:
+            return "Введено меньше 6 цифр"
+    else:
+        return "Введено число < 0"
 
-    account_number_str = str(account_number)  # меняем тип c числа на строку
-    masked = "**" + account_number_str[-4:]  # формируем маску
-
-    return masked
-
-#print(get_mask_card_number(-12))
+#print(get_mask_card_number(12))
+#print(get_mask_account(12))
