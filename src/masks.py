@@ -33,4 +33,4 @@ def get_mask_account(account_number: int) -> str:
         return "Введено число < 0"
 
 #print(get_mask_card_number(12))
-#print(get_mask_account(12))
+#rint(get_mask_account(1225633222))
