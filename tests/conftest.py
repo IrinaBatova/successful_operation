@@ -28,3 +28,14 @@ def account_number():
 @pytest.fixture
 def mask_account_number():
     return  "Счет ** 9876"
+
+# Фикстуры для тестирования функции get_date в модуле widget.py
+
+@pytest.fixture
+def data():
+    return "2024-03-11T02:26:18.671407"
+
+@pytest.fixture
+def formatted_date():
+    return "11.03.2024"
+

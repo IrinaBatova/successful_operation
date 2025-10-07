@@ -13,22 +13,25 @@ def mask_account_card(card_or_account_number: str) -> str:
     card_or_account = []
     number = []
 
-    # Разделяем текст и цифры по спискам
-    for symbol in card_or_account_number:
-        if symbol.isdigit():
-            number.append(symbol)
-        else:
-            card_or_account.append(symbol)
-
-    card_or_account_str = "".join(card_or_account)  # преобразуем список с текстом в строку
-
-    # В зависимости от того, номер счета или номер карты разделяем по маскам
-    if card_or_account_str == "Счет ":
-        number_str = masks.get_mask_account(int("".join(number)))
+    if card_or_account_number == "":
+        return "Вы ничего не ввели"
     else:
-        number_str = masks.get_mask_card_number(int("".join(number)))
+        # Разделяем текст и цифры по спискам
+        for symbol in card_or_account_number:
+            if symbol.isdigit():
+                number.append(symbol)
+            else:
+                card_or_account.append(symbol)
 
-    return card_or_account_str + number_str
+        card_or_account_str = "".join(card_or_account)  # преобразуем список с текстом в строку
+
+        # В зависимости от того, номер счета или номер карты разделяем по маскам
+        if card_or_account_str == "Счет " or card_or_account_str == "Счет":
+            number_str = masks.get_mask_account(int("".join(number)))
+        else:
+            number_str = masks.get_mask_card_number(int("".join(number)))
+
+        return card_or_account_str + number_str
 
 
 def get_date(data: str) -> str:
@@ -38,6 +41,8 @@ def get_date(data: str) -> str:
     :return: возвращает переформатированную дату - в виде строки формата "ДД.ММ.ГГГГ" ( "11.03.2024" ).
     """
 
-    formatted_date = data[8:10] + "." + data[5:7] + "." + data[:4]
-
-    return formatted_date
+    if data == "":
+        return "Вы ничего не ввели"
+    else:
+        formatted_date = data[8:10] + "." + data[5:7] + "." + data[:4]
+        return formatted_date
