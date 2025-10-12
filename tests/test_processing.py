@@ -36,3 +36,22 @@ list_of_dictionaries_param = [
 
 def test_filter_by_state_no_state(list_, state_param, new_list):
     assert filter_by_state(list_, state = state_param) == new_list
+
+# Тестирование функции sort_by_date в модуле processing.py
+
+# С применением фикстур
+
+def test_sort_by_date_t(list_of_dictionaries, new_list_of_dictionaries_date):# значении параметра ascending по умолчанию (True)
+    assert sort_by_date(list_of_dictionaries) == new_list_of_dictionaries_date
+
+def test_sort_by_date_f(list_of_dictionaries, new_list_of_dictionaries_date_false):# значении параметра ascending = False
+    assert sort_by_date(list_of_dictionaries, False) == new_list_of_dictionaries_date_false
+
+def test_sort_by_same_date_t(list_of_dictionaries_same_date, new_list_of_dictionaries_same_date_t):# с за двоением даты при значении параметра ascending по умолчанию (True)
+    assert sort_by_date(list_of_dictionaries_same_date) == new_list_of_dictionaries_same_date_t
+
+def test_sort_by_same_date_f(list_of_dictionaries_same_date, new_list_of_dictionaries_same_date_f):# с за двоением даты при значении параметра ascending по умолчанию (True)
+    assert sort_by_date(list_of_dictionaries_same_date, False) == new_list_of_dictionaries_same_date_f
+
+def test_sort_by_data_empty():
+    assert sort_by_date([]) == []
