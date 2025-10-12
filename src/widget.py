@@ -7,7 +7,7 @@ def mask_account_card(card_or_account_number: str) -> str:
     :param card_or_account_number: принимает тип и номер карты или счета в виде строки
     :return: возвращает замаскированный номер карты или счета, маску в виде строки формата:
      тип карты(счет) XXXX XX** **** XXXX.
-     """
+    """
 
     # Создаем пустые списки
     card_or_account = []

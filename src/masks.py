@@ -8,12 +8,13 @@ def get_mask_card_number(card_number: int) -> str:
         card_number_str = str(card_number)  # меняем тип c числа на строку
         if len(card_number_str) == 16:
             mask = card_number_str[:6] + "**" + "****" + card_number_str[-4:]  # формируем маску
-            return " ".join(mask[i : i + 4] for i in range(0, len(mask), 4))  # возвращаем в заданном шаблоне по 4 символа
+            return " ".join(
+                mask[i:i + 4] for i in range(0, len(mask), 4)
+            )  # возвращаем в заданном шаблоне по 4 символа
         else:
             return "Введено не 16 цифр"
     else:
         return "Введено число < 0"
-
 
 
 def get_mask_account(account_number: int) -> str:
@@ -32,5 +33,6 @@ def get_mask_account(account_number: int) -> str:
     else:
         return "Введено число < 0"
 
-#print(get_mask_card_number(12))
-#rint(get_mask_account(1225633222))
+
+# print(get_mask_card_number(12))
+# rint(get_mask_account(1225633222))

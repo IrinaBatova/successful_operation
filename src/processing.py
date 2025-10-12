@@ -23,6 +23,7 @@ def sort_by_date(list_of_dictionaries: list, ascending: bool = True) -> list:
 
     return list_of_dictionaries
 
+
 # Вызов функции отбора словарей по значению ключа "state"
 
 # list_of_dictionaries = [
@@ -36,6 +37,6 @@ def sort_by_date(list_of_dictionaries: list, ascending: bool = True) -> list:
 #
 #
 # print(filter_by_state(list_of_dictionaries))
-#print(filter_by_state(list_of_dictionaries, state="CANCEL"))
-print(sort_by_date(list_of_dictionaries))
-#print(sort_by_date(list_of_dictionaries, ascending=False))
+# print(filter_by_state(list_of_dictionaries, state="CANCEL"))
+# print(sort_by_date(list_of_dictionaries))
+# print(sort_by_date(list_of_dictionaries, ascending=False))
