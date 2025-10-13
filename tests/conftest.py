@@ -4,8 +4,8 @@ import pytest
 
 
 @pytest.fixture
-def card_number() -> str:
-    return "7000792289606361"
+def card_number() -> int:
+    return 7000792289606361
 
 
 @pytest.fixture
