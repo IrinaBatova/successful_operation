@@ -2,7 +2,7 @@ import pytest
 
 from src.processing import filter_by_state, sort_by_date
 
-# Тестирование функции filter_by_state в модуле processing.py
+# Тестирование функции filter_by_state
 
 
 # С применением фикстур
@@ -59,7 +59,7 @@ def test_filter_by_state_no_state_1(list_: list, state_param: str, new_list: lis
     assert filter_by_state(list_, state=state_param) == new_list
 
 
-# Тестирование функции sort_by_date в модуле processing.py
+# Тестирование функции sort_by_date
 
 # С применением фикстур
 

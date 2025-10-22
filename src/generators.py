@@ -23,6 +23,7 @@ transactions = (
                     "amount": "79114.93",
                     "currency": {
                         "name": "USD",
+
                         "code": "USD"
                     }
                 },
@@ -90,16 +91,15 @@ def filter_by_currency(list_transactions: list, currency: str) -> iter:
     for transaction in list_transactions:
         if transaction["operationAmount"]["currency"]["name"] == currency:
             yield transaction
-        # else:
-        #     yield "Валюта не найдена"
 
 
-usd_transactions = filter_by_currency(transactions, "USD")
-try:
-    for _ in range(5):
-        print(next(usd_transactions))
-except StopIteration:
-    print("Достигнут конец итератора")
+
+# usd_transactions = filter_by_currency(transactions, "USD")
+# try:
+#     for _ in range(5):
+#         print(next(usd_transactions))
+# except StopIteration:
+#     print("Достигнут конец итератора")
 
 
 
@@ -116,12 +116,12 @@ def transaction_descriptions(list_transactions: list) -> iter:
                 yield transaction[key]
 
 
-descriptions = transaction_descriptions(transactions)
-for _ in range(5):
-    print(next(descriptions))
+# descriptions = transaction_descriptions(transactions)
+# for _ in range(5):
+#     print(next(descriptions))
 
 
-def card_number_generator(start: int, stop: int) -> str:
+def card_number_generator(start: int, stop: int) -> iter:
     """
     Функция выдает номера банковских карт в формате XXXX XXXX XXXX XXXX, где X — цифра номера карты.
     Генератор может сгенерировать номера карт в заданном диапазоне от 0000 0000 0000 0001 до 9999 9999 9999 9999:
@@ -136,6 +136,6 @@ def card_number_generator(start: int, stop: int) -> str:
         yield formatted_number
 
 
-usd_transactions = card_number_generator(1, 5)
-for transaction in usd_transactions:
-    print(transaction)
+# usd_transactions = card_number_generator(9999999999999997, 9999999999999999)
+# for transaction in usd_transactions:
+#     print(transaction)

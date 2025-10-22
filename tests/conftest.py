@@ -59,8 +59,8 @@ def transactions() -> list:  # Входные данные
 
 
 @pytest.fixture
-def transaction_1() -> dict:  # Возвращает транзакцию 1
-    transaction_1 = {
+def transaction_usd_1() -> dict:  # Возвращает транзакцию "USD" 1
+    transaction_usd_1 = {
         "id": 939719570,
         "state": "EXECUTED",
         "date": "2018-06-30T02:08:58.425572",
@@ -70,12 +70,12 @@ def transaction_1() -> dict:  # Возвращает транзакцию 1
         "to": "Счет 11776614605963066702",
     }
 
-    return transaction_1
+    return transaction_usd_1
 
 
 @pytest.fixture
-def transaction_2() -> dict:  # Возвращает транзакцию 2
-    transaction_2 = {
+def transaction_usd_2() -> dict:  # Возвращает транзакцию "USD" 2
+    transaction_usd_2 = {
         "id": 142264268,
         "state": "EXECUTED",
         "date": "2019-04-04T23:20:05.206878",
@@ -84,8 +84,21 @@ def transaction_2() -> dict:  # Возвращает транзакцию 2
         "from": "Счет 19708645243227258542",
         "to": "Счет 75651667383060284188",
     }
-    return transaction_2
+    return transaction_usd_2
 
+
+@pytest.fixture
+def transaction_usd_3() -> dict:  # Возвращает транзакцию "USD" 3
+    transaction_usd_3 = {
+        "id": 895315941,
+        "state": "EXECUTED",
+        "date": "2018-08-19T04:27:37.904916",
+        "operationAmount": {"amount": "56883.54", "currency": {"name": "USD", "code": "USD"}},
+        "description": "Перевод с карты на карту",
+        "from": "Visa Classic 6831982476737658",
+        "to": "Visa Platinum 8990922113665229",
+        }
+    return transaction_usd_3
 
 # Фикстуры для тестирования функции get_mask_card_number в модуле masks.py
 
