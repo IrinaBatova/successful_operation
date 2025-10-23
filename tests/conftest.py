@@ -97,8 +97,9 @@ def transaction_usd_3() -> dict:  # Возвращает транзакцию "U
         "description": "Перевод с карты на карту",
         "from": "Visa Classic 6831982476737658",
         "to": "Visa Platinum 8990922113665229",
-        }
+    }
     return transaction_usd_3
+
 
 # Фикстуры для тестирования функции get_mask_card_number в модуле masks.py
 

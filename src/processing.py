@@ -5,7 +5,7 @@ def filter_by_state(list_of_dictionaries: list, state: str = "EXECUTED") -> list
     - param state: не обязательный, принимает опционально значение для ключа state (по умолчанию 'EXECUTED');
     - return: возвращает новый список словарей, содержащий только те словари, у которых ключ state соответствует
      выбранному значению.
-     """
+    """
 
     new_list_of_dictionaries = []
 

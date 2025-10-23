@@ -1,12 +1,16 @@
-import pytest, re
+import re
 
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+import pytest
 
+from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 # Тестирование функции filter_by_currency
 
+
 # Проверяется, что функция корректно фильтрует транзакции по заданной валюте
-def test_filter_by_currency(transactions: list, transaction_usd_1: list, transaction_usd_2: list, transaction_usd_3: list) -> None:
+def test_filter_by_currency(
+    transactions: list, transaction_usd_1: list, transaction_usd_2: list, transaction_usd_3: list
+) -> None:
     usd_transactions = filter_by_currency(transactions, "USD")
     assert next(usd_transactions) == transaction_usd_1
     assert next(usd_transactions) == transaction_usd_2
@@ -14,7 +18,7 @@ def test_filter_by_currency(transactions: list, transaction_usd_1: list, transac
 
 
 # Проверяется, что функция правильно обрабатывает случаи, когда транзакции в заданной валюте отсутствуют
-def test_filter_by_currency_no_transactions(transactions: list) -> None: # транзакции в заданной валюте отсутствуют
+def test_filter_by_currency_no_transactions(transactions: list) -> None:  # транзакции в заданной валюте отсутствуют
     eur_transactions = filter_by_currency(transactions, "EUR")
     try:
         next(eur_transactions)
@@ -24,7 +28,7 @@ def test_filter_by_currency_no_transactions(transactions: list) -> None: # тр�
 
 
 # Проверяется, что генератор не завершается ошибкой при обработке пустого списка
-def test_filter_by_currency_empty_list(transactions: list) -> None: # пустой список транзакций
+def test_filter_by_currency_empty_list(transactions: list) -> None:  # пустой список транзакций
     eur_transactions = filter_by_currency([], "EUR")
     try:
         next(eur_transactions)
@@ -34,6 +38,7 @@ def test_filter_by_currency_empty_list(transactions: list) -> None: # пусто
 
 
 # Тестирование функции transaction_descriptions
+
 
 # Проверка, что функция возвращает корректные описания для каждой транзакции
 def test_transaction_descriptions(transactions: list) -> None:
@@ -45,7 +50,7 @@ def test_transaction_descriptions(transactions: list) -> None:
     assert next(key_transactions) == "Перевод организации"
 
 
-#Проверка работы функции с пустым списком транзакций
+# Проверка работы функции с пустым списком транзакций
 def test_transaction_descriptions_(transactions: list) -> None:
     key_transactions = transaction_descriptions([])
     try:
@@ -56,6 +61,7 @@ def test_transaction_descriptions_(transactions: list) -> None:
 
 
 # Тестирование функции card_number_generator
+
 
 # Проверка, что генератор выдает правильные номера карт в заданном диапазоне
 @pytest.mark.parametrize("start, stop", [(0, 1)])
@@ -74,7 +80,7 @@ def test_card_number_generator_2(start: int, stop: int) -> None:
     assert next(formatted_number) == "9999 9999 9999 9999"
 
 
-# Проверка, что генератор выдает правильные номера карт в заданном диапазоне
+# Проверка, что генератор выдает корректный формат номеров карт в заданном диапазоне
 @pytest.mark.parametrize("start, stop", [(1, 2)])
 def test_card_number_generator_3(start: int, stop: int) -> None:
     formatted_number = card_number_generator(start, stop)
@@ -87,4 +93,3 @@ def test_card_number_generator_3(start: int, stop: int) -> None:
             print("Некорректный формат номера карты")
     except AssertionError:
         print("Assertion Error")
-
