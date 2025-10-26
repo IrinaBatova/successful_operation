@@ -25,7 +25,7 @@ pyproject.toml
 
 1. Для тестирования используется библиотека pytest
 2. Запуск тестирования: введите команду poetry run pytest --cov в терминале.
-3. Code coverage 99%.
+3. Code coverage 100%.
 
 ## Документация:
 
@@ -34,3 +34,8 @@ pyproject.toml
 ## Лицензия:
 
 Пока не выдали.
+
+## Обновления:
+
+1. Добавлен модуль processing.py
+2. Добавлен модуль generators.py
