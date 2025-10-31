@@ -1,0 +1,5 @@
+2025-10-31 22:18:23.924804 Starting function 'my_function' with arguments (10, 5) and {}
+[2025-10-31 22:18:23.924831] Finished function 'my_function'
+2025-10-31 22:22:24.554238 Starting function 'my_function' with arguments (10, 5) and {}
+[2025-10-31 22:22:24.554261] Finished function 'my_function'
+my_function ok. Function execution time: 2.3e-05 seconds
