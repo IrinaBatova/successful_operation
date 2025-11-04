@@ -1,4 +1,4 @@
-from src import processing, widget, generators
+from src import processing, widget, generators, decorators
 
 # Домашняя работа к уроку 9.2 Основы Git
 
@@ -102,3 +102,21 @@ for _ in range(5):
 usd_transactions = generators.card_number_generator(9999999999999997, 9999999999999999)
 for transaction in usd_transactions:
     print(transaction)
+
+# Домашняя работа к уроку 11.2 Декораторы
+
+
+# Пример использования декоратора log, если filename задан, логи выводятся в файл mylog.txt
+@decorators.log(filename="../mylog.txt")
+def my_function_1(x, y):
+    return x / y
+
+
+# Пример использования декоратора log, если filename не задан, логи выводятся в консоль
+@decorators.log()
+def my_function_2(x, y):
+    return x + y
+
+
+my_function_1(10, 5)
+my_function_2(10, 5)
