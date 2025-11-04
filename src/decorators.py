@@ -1,8 +1,10 @@
-import functools, datetime
+import datetime
+import functools
+from typing import Any, Callable, Optional
 
 
 # Декоратор log
-def log(filename=None):
+def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callable[..., Any]]:
     """
     Декоратор с параметрами: внешняя функция
     :param filename: Необязательный аргумент, который определяет куда будут записываться логи (в файл или в консоль):
@@ -11,7 +13,7 @@ def log(filename=None):
     :return: Возвращает внутренний декоратор - decorator
     """
 
-    def decorator(func):
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         """
         Декоратор: внутренняя функция
         :param func: принимает любую функцию, которую нужно декорировать
@@ -20,7 +22,7 @@ def log(filename=None):
 
         @functools.wraps(func)  # декоратор передает метаданные (имя функции, docstring)
         # от декорируемой функции в функцию-обертку.
-        def wrapper(*args, **kwargs):  # функция-обертка
+        def wrapper(*args: Any, **kwargs: Any) -> Any:  # функция-обертка
             log_message_1 = ""
             log_message_2 = ""
             log_message_3 = ""
@@ -28,10 +30,11 @@ def log(filename=None):
             log_message_err = ""
             try:
                 start_time = datetime.datetime.now()
-                #log_message_1 = f"[{start_time}] Starting function '{func.__name__}' with arguments {args} and {kwargs}"
                 result = func(*args, **kwargs)
                 end_time = datetime.datetime.now()
-                log_message_1 = f"[{start_time}] Starting function '{func.__name__}' with arguments {args} and {kwargs}"
+                log_message_1 = (
+                    f"[{start_time}] Starting function '{func.__name__}' with arguments {args} and {kwargs}"
+                )
                 log_message_2 = f"[{end_time}] Finished function '{func.__name__}' with result {result}"
                 log_message_3 = f"{func.__name__} ok."
                 log_message_4 = f"Function execution time: {(end_time - start_time).total_seconds()} seconds"
@@ -43,15 +46,36 @@ def log(filename=None):
             finally:
                 if filename:
                     with open(filename, "a", encoding="utf-8") as f:
-                        f.write(log_message_err + "\n" + log_message_1 + "\n" + log_message_2 + "\n" + log_message_3 + "\n" + log_message_4 + "\n")
+                        f.write(
+                            log_message_err
+                            + "\n"
+                            + log_message_1
+                            + "\n"
+                            + log_message_2
+                            + "\n"
+                            + log_message_3
+                            + "\n"
+                            + log_message_4
+                            + "\n"
+                        )
                 else:
-                    print(log_message_err + "\n" + log_message_1 + "\n" + log_message_2 + "\n" + log_message_3 + "\n" + log_message_4)
+                    print(
+                        log_message_err
+                        + "\n"
+                        + log_message_1
+                        + "\n"
+                        + log_message_2
+                        + "\n"
+                        + log_message_3
+                        + "\n"
+                        + log_message_4
+                    )
 
         return wrapper
 
     return decorator
 
-#
+
 # # Пример использования декоратора log, если filename задан, логи выводятся в файл mylog.txt
 # @log(filename="../mylog.txt")
 # def my_function_1(x, y):

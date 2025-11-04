@@ -1,4 +1,4 @@
-from src import processing, widget, generators, decorators
+from src import decorators, generators, processing, widget
 
 # Домашняя работа к уроку 9.2 Основы Git
 
@@ -102,6 +102,7 @@ for _ in range(5):
 usd_transactions = generators.card_number_generator(9999999999999997, 9999999999999999)
 for transaction in usd_transactions:
     print(transaction)
+
 
 # Домашняя работа к уроку 11.2 Декораторы
 
