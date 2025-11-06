@@ -39,3 +39,4 @@ pyproject.toml
 
 1. Добавлен модуль processing.py
 2. Добавлен модуль generators.py
+3. Добавлен модуль decorators.py

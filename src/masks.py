@@ -9,7 +9,7 @@ def get_mask_card_number(card_number: int) -> str:
         if len(card_number_str) == 16:
             mask = card_number_str[:6] + "**" + "****" + card_number_str[-4:]  # формируем маску
             return " ".join(
-                mask[i : i + 4] for i in range(0, len(mask), 4)
+                mask[i: i + 4] for i in range(0, len(mask), 4)
             )  # возвращаем в заданном шаблоне по 4 символа
         else:
             return "Введено не 16 цифр"
