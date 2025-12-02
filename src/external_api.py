@@ -5,7 +5,12 @@ import json
 
 
 def currency_conversion(amount: str, currency: str) -> float:
-    """Функция для конвертации валюты"""
+    """
+    Функция для конвертации валюты.
+    - param amount: принимает сумму транзакции в виде строки;
+    - param currency: принимает тип валюты транзакции в виде строки;
+    - return: возвращает сумму транзакции в рублях.
+    """
 
     try:
         load_dotenv()
@@ -24,7 +29,7 @@ def currency_conversion(amount: str, currency: str) -> float:
         amount_rub = float(result['result'])
         # print(type(amount_rub))
 
-        return amount_rub  # print(f"{result}")
+        return amount_rub
 
     except requests.exceptions.RequestException as e:
         print(f"HTTP ошибка: {e.response.status_code} - {e.response.reason}")
@@ -43,5 +48,4 @@ def currency_conversion(amount: str, currency: str) -> float:
         print(result)
 
 
-
-print(currency_conversion("8221.37", "USD"))
+#print(currency_conversion("8221.37", "USD"))
