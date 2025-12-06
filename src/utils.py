@@ -7,14 +7,13 @@ from typing import Any, Callable, Optional
 def read_json_file(path_to_file: str) -> list:
     """
     Функция, которая принимает на вход путь до JSON-файла и возвращает
-    список словарей с данными о финансовых транзакциях. Если файл пустой,
-    содержит не список или не найден, функция возвращает пустой список.
+    список словарей с данными о финансовых транзакциях. Если файл
+    пустой, содержит не список или не найден, функция возвращает пустой список.
     :param path_to_file: путь до JSON-файла
     :return: список
     """
 
     try:
-        #if os.path.isfile(path_to_file): # определяем, существует ли файл
         with open(path_to_file, encoding='utf-8') as f: # Открываем файл и читаем строки
             first_char = f.read(1)
             if not first_char:
@@ -37,37 +36,40 @@ def read_json_file(path_to_file: str) -> list:
         print(f"Строка: {e.lineno}, колонка: {e.colno}")
 
     except Exception as e:
-        print(e)
-
-# transactions_1 = read_json_file(path_to_file="../data/operations.json")
-# print(type(transactions_1))
-# transactions_2 = read_json_file(path_to_file="../data/empty.json") # пустой файл
-# print(transactions_1)
-# print("Ok")
-# print(transactions_2)
+        print(f"Это общее исключение.{e}")
 
 
 def transaction_amount(transaction: dict) -> float:
     """
     Функция, которая принимает на вход транзакцию и возвращает сумму транзакции в рублях
-    :param transaction:
-    :return:
+    :param transaction: принимает на вход словарь с данными о транзакции
+    :return: возвращает сумму транзакции (ключ amount) в рублях, тип данных float
     """
 
     try:
         if transaction['operationAmount']['currency']['code'] == "RUB":
-            amount_rub = float((transaction.get('operationAmount')).get('amount')) # получаем сумму в рублях
-            #print(f"{amount_rub} руб.")
+            amount_rub = float((transaction.get('operationAmount')).get('amount'))  # получаем сумму в рублях
+
         else:
             amount_no_rub = (transaction.get('operationAmount')).get('amount')  # получаем сумму не в рублях
             currency = ((transaction.get('operationAmount')).get('currency')).get('code')  # получаем тип валюты
-            amount_rub = external_api.currency_conversion(amount_no_rub, currency) # вызываем функцию конвертации валюты
-            #print(f"{amount_no_rub} {currency} конвертировано в: {amount_rub} руб.")
+            # Вызываем функцию конвертации валюты
+            amount_rub = external_api.currency_conversion(amount_no_rub, currency)
+
         return amount_rub
 
-    except Exception as e:
-        print(e)
+    except KeyError as e:
+        raise KeyError(f"Ключ 'amount' не найден в словаре. {e}")
 
+    except ValueError:
+        raise ValueError("Не удалось преобразовать сумму в число.")
+
+    except Exception as e:
+        raise Exception(f"Это общее исключение.{e}")
+
+# print(read_json_file(path_to_file="../data/empty.json")) # вызов функции для пустого файла
+#print(read_json_file(path_to_file="../data/operations.json"))
+# print(read_json_file(path_to_file="operations.json")) # вызов функции, когда путь до файла указан не верно
 
 # transactions_2 = [
 #     {
@@ -104,10 +106,7 @@ def transaction_amount(transaction: dict) -> float:
 #
 # for el in transactions_2:
 #     p = transaction_amount(el)
-#     # print(p)
+#     print(p)
 #     # print(el)
 
-
-# print(read_json_file(path_to_file="../data/empty.json")) # вызов функции для пустого файла
-# print(read_json_file(path_to_file="../data/operations.json"))
-# print(read_json_file(path_to_file="operations.json")) # вызов функции, когда путь до файла указан не верно
+#if os.path.isfile(path_to_file): # определяем, существует ли файл
