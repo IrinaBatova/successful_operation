@@ -1,7 +1,6 @@
-import os
 import json
+
 from src import external_api
-from typing import Any, Callable, Optional
 
 
 def read_json_file(path_to_file: str) -> list:
@@ -14,12 +13,12 @@ def read_json_file(path_to_file: str) -> list:
     """
 
     try:
-        with open(path_to_file, encoding='utf-8') as f: # Открываем файл и читаем строки
+        with open(path_to_file, encoding="utf-8") as f:  # Открываем файл и читаем строки
             first_char = f.read(1)
             if not first_char:
                 print("Файл пустой")
                 return []
-            f.seek(0) # перемещаем указатель чтения/записи в начало файла
+            f.seek(0)  # перемещаем указатель чтения/записи в начало файла
             list_of_transactions = json.load(f)
             if type(list_of_transactions) is list:
                 return list_of_transactions
@@ -38,6 +37,8 @@ def read_json_file(path_to_file: str) -> list:
     except Exception as e:
         print(f"Это общее исключение.{e}")
 
+    return []
+
 
 def transaction_amount(transaction: dict) -> float:
     """
@@ -47,12 +48,12 @@ def transaction_amount(transaction: dict) -> float:
     """
 
     try:
-        if transaction['operationAmount']['currency']['code'] == "RUB":
-            amount_rub = float((transaction.get('operationAmount')).get('amount'))  # получаем сумму в рублях
+        if transaction["operationAmount"]["currency"]["code"] == "RUB":
+            amount_rub = float((transaction.get("operationAmount")).get("amount"))  # получаем сумму в рублях
 
         else:
-            amount_no_rub = (transaction.get('operationAmount')).get('amount')  # получаем сумму не в рублях
-            currency = ((transaction.get('operationAmount')).get('currency')).get('code')  # получаем тип валюты
+            amount_no_rub = (transaction.get("operationAmount")).get("amount")  # получаем сумму не в рублях
+            currency = ((transaction.get("operationAmount")).get("currency")).get("code")  # получаем тип валюты
             # Вызываем функцию конвертации валюты
             amount_rub = external_api.currency_conversion(amount_no_rub, currency)
 
@@ -67,8 +68,9 @@ def transaction_amount(transaction: dict) -> float:
     except Exception as e:
         raise Exception(f"Это общее исключение.{e}")
 
+
 # print(read_json_file(path_to_file="../data/empty.json")) # вызов функции для пустого файла
-#print(read_json_file(path_to_file="../data/operations.json"))
+# print(read_json_file(path_to_file="../data/operations.json"))
 # print(read_json_file(path_to_file="operations.json")) # вызов функции, когда путь до файла указан не верно
 
 # transactions_2 = [
@@ -109,4 +111,4 @@ def transaction_amount(transaction: dict) -> float:
 #     print(p)
 #     # print(el)
 
-#if os.path.isfile(path_to_file): # определяем, существует ли файл
+# if os.path.isfile(path_to_file): # определяем, существует ли файл

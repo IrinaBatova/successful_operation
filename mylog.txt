@@ -22,3 +22,13 @@ my_function_2 error: ZeroDivisionError. Inputs: (10, 0), {}
 
 
 
+
+[2025-12-07 18:11:50.859664] Starting function 'my_function_1' with arguments (10, 5) and {}
+[2025-12-07 18:11:50.859666] Finished function 'my_function_1' with result 5
+my_function_1 ok.
+Function execution time: 2e-06 seconds
+my_function_2 error: ZeroDivisionError. Inputs: (10, 0), {}
+
+
+
+

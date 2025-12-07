@@ -1,7 +1,8 @@
-import os
-from dotenv import load_dotenv
-import requests
 import json
+import os
+
+import requests
+from dotenv import load_dotenv
 
 
 def currency_conversion(amount: str, currency: str) -> float:
@@ -13,23 +14,22 @@ def currency_conversion(amount: str, currency: str) -> float:
     """
 
     load_dotenv()
-    api_key = os.getenv('API_KEY')
+    api_key = os.getenv("API_KEY")
 
     url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency}&amount={amount}"
-    payload = {}
+    payload: dict = {}
     headers = {"apikey": f"{api_key}"}
 
     try:
         response = requests.request("GET", url=url, headers=headers, data=payload)
-        result = response.json() # извлекаем данные из ответа в формате JSON и преобразуем их в Python-словарь (dict)
+        result = response.json()  # извлекаем данные из ответа в формате JSON и преобразуем их в Python-словарь (dict)
 
-        if 'result' in result:
-            return float(result['result'])
+        if "result" in result:
+            return float(result["result"])
         else:
             print(result)
 
     except requests.exceptions.RequestException as e:
-        print(f"HTTP ошибка: {e.response.status_code} - {e.response.reason}")
         print(f"Сообщение об ошибке: {e}")
 
     except json.JSONDecodeError as e:
@@ -42,6 +42,8 @@ def currency_conversion(amount: str, currency: str) -> float:
 
     except Exception as e:
         print(f"Ошибка {e}")
+
+    return 0.0
 
 
 # print(currency_conversion("8221.37", "USD"))
