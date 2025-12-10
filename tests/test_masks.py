@@ -19,7 +19,7 @@ def test_get_mask_card_number_2(card_number: int, mask_card_number: str) -> None
     assert get_mask_card_number(card_number) == mask_card_number
 
 
-# Тестирование функции test_get_mask_account в модуле masks.py
+# Тестирование функции get_mask_account в модуле masks.py
 
 
 # С применением параметризации
