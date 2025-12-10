@@ -1,11 +1,13 @@
 import pytest
+from pytest import CaptureFixture
+
 from src.decorators import log
 
 
 # Проверяется вывод log-сообщений в файл mylog.txt:
-def test_log_file():
+def test_log_file() -> None:
     @log(filename="../mylog.txt")
-    def my_function_1(x, y):
+    def my_function_1(x: float, y: float) -> float:
         return x - y
 
     result = my_function_1(10, 5)
@@ -14,8 +16,9 @@ def test_log_file():
     assert "my_function_1 ok." in log_content
     assert result == 5
 
+
 # Проверяется вывод log-сообщений об ошибке в файл mylog.txt:
-def test_log_file_error():
+def test_log_file_error() -> None:
     @log(filename="../mylog.txt")
     def my_function_2(x: float, y: float) -> float:
         return x / y
@@ -29,9 +32,9 @@ def test_log_file_error():
 
 
 # Проверяется вывод log-сообщений в консоль:
-def test_log_console(capsys):
+def test_log_console(capsys: CaptureFixture) -> None:
     @log()
-    def my_function_3(x, y):
+    def my_function_3(x: float, y: float) -> float:
         return x / y
 
     result = my_function_3(20, 2)
@@ -40,10 +43,11 @@ def test_log_console(capsys):
     assert "my_function_3 ok." in string
     assert result == 10
 
+
 # Проверяется вывод log-сообщений об ошибке в консоль:
-def test_log_console_error():
+def test_log_console_error(capsys: CaptureFixture) -> None:
     @log()
-    def my_function_4(x: int, y: int) -> int:
+    def my_function_4(x: float, y: float) -> float:
         return x / y
 
     with pytest.raises(Exception, match="division by zero"):
