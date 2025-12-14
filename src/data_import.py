@@ -1,7 +1,6 @@
 import os
 import csv
 import pandas as pd
-import json
 import logging
 
 
@@ -21,12 +20,12 @@ def read_csv_file(path_to_file: str) -> list:
     :param path_to_file: путь до csv-файла
     :return: список словарей
     """
-    logger.info('Начала выполняться функция read_csv_file')
+    logger.info("Начала выполняться функция read_csv_file")
     list_of_transactions = []
 
     try:
         _, file_extension = os.path.splitext(path_to_file)  # Получаем расширение файла
-        if file_extension == '.csv':  # Проверяем, является ли оно '.csv'
+        if file_extension == ".csv":  # Проверяем, является ли оно '.csv'
 
             with open(path_to_file, encoding="utf-8") as f:  # Открываем файл и читаем строки
                 logger.info(f"Открываем файл {path_to_file} и читаем строки")
@@ -38,7 +37,9 @@ def read_csv_file(path_to_file: str) -> list:
                     return []
 
                 f.seek(0)  # перемещаем указатель чтения/записи в начало файла
-                dicts_of_transactions = csv.DictReader(f, delimiter=';') # читаем CSV-файл и создаем словари из строк файла
+                dicts_of_transactions = csv.DictReader(
+                    f, delimiter=";"
+                )  # читаем CSV-файл и создаем словари из строк файла
                 # print(type(dicts_of_transactions))
 
                 # Складываем словари в список
@@ -63,12 +64,14 @@ def read_csv_file(path_to_file: str) -> list:
 
     # return []
 
-print(read_csv_file(path_to_file="../data/transactions.csv"))
+
+# print(read_csv_file(path_to_file="../data/transactions.csv"))
 # print(read_csv_file(path_to_file="../data/empty.csv"))  # вызов функции для пустого файла
 # print(read_csv_file(path_to_file="../data/operations.json")) # вызов функции с не csv файлом
 # print(read_csv_file(path_to_file="transactions.csv"))  # вызов функции, если путь до файла указан не верно
 
-def read_Excel_file(path_to_file: str) -> list:
+
+def read_excel_file(path_to_file: str) -> list:
     """
     Функция, которая принимает на вход путь до Excel-файла и возвращает
     список словарей с данными о финансовых транзакциях. Если файл
@@ -76,39 +79,33 @@ def read_Excel_file(path_to_file: str) -> list:
     :param path_to_file: путь до Excel-файла
     :return: список словарей
     """
-    logger.info('Начала выполняться функция read_Excel_file')
-    list_of_transactions = []
+    logger.info("Начала выполняться функция read_excel_file")
 
     try:
         _, file_extension = os.path.splitext(path_to_file)  # Получаем расширение файла
-        if file_extension == '.xlsx':  # Проверяем, является ли оно '.xlsx'
 
-            with open(path_to_file, encoding="utf-8") as f:  # Открываем файл и читаем строки
-                logger.info(f"Открываем файл {path_to_file} и читаем строки")
+        if file_extension == ".xlsx":  # Проверяем, является ли расширение - '.xlsx'
+            logger.info(f"Загружаются данные из Excel-файла {path_to_file} в объект DataFrame")
+            df_transactions = pd.read_excel(path_to_file)  # читаем Excel-файл и создаем DataFrame
 
-                first_char = f.read(1)
-                if not first_char:
-                    logger.info(f"Файл {path_to_file} пустой, возвращен пустой список.")
-                    print("Файл пустой")
-                    return []
-
-                f.seek(0)  # перемещаем указатель чтения/записи в начало файла
-                dicts_of_transactions = csv.DictReader(f, delimiter=';') # читаем CSV-файл и создаем словари из строк файла
-
-                # Складываем словари в список
-                for row in dicts_of_transactions:
-                    list_of_transactions.append(row)
-                print(type(list_of_transactions))
+            if df_transactions.empty:
+                logger.info(f"Файл {path_to_file} пустой, возвращен пустой список.")
+                print(f"Файл {path_to_file} пустой, возвращен пустой список.")
+                return []
+            else:
+                # Трансформируем DataFrame в список словарей с ключами, соответствующими названиям столбцов
+                list_of_transactions = df_transactions.to_dict(orient="records")
+                logger.info("Функция read_excel_file возвратила список словарей с данными о финансовых транзакциях.")
                 return list_of_transactions
 
         else:
-            logger.info(f"Файл {path_to_file} не Excel файл, функция read_Excel_file возвратила пустой список.")
-            print("Это не Excel файл")
+            logger.info(f"Файл {path_to_file} не Excel файл, функция read_excel_file возвратила пустой список.")
+            print(f"Файл {path_to_file} не Excel файл, функция read_excel_file возвратила пустой список.")
             return []
 
     except FileNotFoundError as ex:
         logger.error(f"Файл {path_to_file} не найден. Произошла ошибка: {ex}")
-        print(f"Файл {path_to_file} не найден")
+        print(f"Файл {path_to_file} не найден. Произошла ошибка: {ex}")
         return []
 
     except Exception as ex:
@@ -117,7 +114,8 @@ def read_Excel_file(path_to_file: str) -> list:
 
     # return []
 
-# print(read_Excel_file(path_to_file="../data/transactions_excel.xlsx"))
-# print(read_Excel_file(path_to_file="../data/empty.xlsx"))  # вызов функции для пустого файла
-# print(read_Excel_file(path_to_file="../data/operations.json")) # вызов функции с не Excel файлом
-# print(read_Excel_file(path_to_file="transactions_excel.xlsx"))  # вызов функции, если путь до файла указан не верно
+
+print(read_excel_file(path_to_file="../data/transactions_excel.xlsx"))
+# print(read_excel_file(path_to_file="../data/empty.xlsx"))  # вызов функции для пустого файла
+# print(read_excel_file(path_to_file="../data/operations.json")) # вызов функции с не Excel файлом
+# print(read_excel_file(path_to_file="transactions_excel.xlsx"))  # вызов функции, если путь до файла указан не верно
