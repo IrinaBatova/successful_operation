@@ -1,8 +1,8 @@
-import os
 import csv
-import pandas as pd
 import logging
+import os
 
+import pandas as pd
 
 logger = logging.getLogger("data_import")
 logger.setLevel(logging.DEBUG)
@@ -14,9 +14,8 @@ logger.addHandler(file_handler)
 
 def read_csv_file(path_to_file: str) -> list:
     """
-    Функция, которая принимает на вход путь до csv-файла и возвращает
-    список словарей с данными о финансовых транзакциях. Если файл
-    пустой, не csv-файл или не найден, функция возвращает пустой список.
+    Функция, которая принимает на вход путь до csv-файла и возвращает список словарей с данными о
+    финансовых транзакциях. Если файл пустой, не csv-файл или не найден, функция возвращает пустой список.
     :param path_to_file: путь до csv-файла
     :return: список словарей
     """
@@ -33,36 +32,36 @@ def read_csv_file(path_to_file: str) -> list:
                 first_char = f.read(1)
                 if not first_char:
                     logger.info(f"Файл {path_to_file} пустой, возвращен пустой список.")
-                    print("Файл пустой")
+                    print(f"Файл {path_to_file} пустой, возвращен пустой список.")
                     return []
 
                 f.seek(0)  # перемещаем указатель чтения/записи в начало файла
-                dicts_of_transactions = csv.DictReader(
-                    f, delimiter=";"
-                )  # читаем CSV-файл и создаем словари из строк файла
-                # print(type(dicts_of_transactions))
+
+                # Читаем CSV-файл и создаем словари из строк файла
+                dicts_of_transactions = csv.DictReader(f, delimiter=";")
 
                 # Складываем словари в список
                 for row in dicts_of_transactions:
                     list_of_transactions.append(row)
                 # print(type(list_of_transactions))
+                logger.info("Функция read_csv_file возвратила список словарей с данными о финансовых транзакциях.")
                 return list_of_transactions
 
         else:
-            logger.info(f"Файл {path_to_file} не CSV файл, функция read_csv_file возвратила пустой список.")
-            print("Это не CSV файл")
+            logger.info(f"Файл {path_to_file} не .csv файл, возвращен пустой список.")
+            print(f"Файл {path_to_file} не .csv файл, возвращен пустой список.")
             return []
 
     except FileNotFoundError as ex:
         logger.error(f"Файл {path_to_file} не найден. Произошла ошибка: {ex}")
-        print(f"Файл {path_to_file} не найден")
+        print(f"Файл {path_to_file} не найден, возвращен пустой список.")
         return []
 
     except Exception as ex:
         logger.error(f"Это общее исключение.{ex}")
         print(f"Это общее исключение.{ex}")
 
-    # return []
+    return []
 
 
 # print(read_csv_file(path_to_file="../data/transactions.csv"))
@@ -73,10 +72,9 @@ def read_csv_file(path_to_file: str) -> list:
 
 def read_excel_file(path_to_file: str) -> list:
     """
-    Функция, которая принимает на вход путь до Excel-файла и возвращает
-    список словарей с данными о финансовых транзакциях. Если файл
-    пустой, не Excel-файл или не найден, функция возвращает пустой список.
-    :param path_to_file: путь до Excel-файла
+    Функция, которая принимает на вход путь до Excel-файла и возвращает список словарей с данными о
+    финансовых транзакциях. Если файл пустой, не Excel-файл или не найден, функция возвращает пустой список.
+    :param path_to_file: строка - путь до Excel-файла
     :return: список словарей
     """
     logger.info("Начала выполняться функция read_excel_file")
@@ -99,23 +97,23 @@ def read_excel_file(path_to_file: str) -> list:
                 return list_of_transactions
 
         else:
-            logger.info(f"Файл {path_to_file} не Excel файл, функция read_excel_file возвратила пустой список.")
-            print(f"Файл {path_to_file} не Excel файл, функция read_excel_file возвратила пустой список.")
+            logger.info(f"Файл {path_to_file} не Excel файл, возвращен пустой список.")
+            print(f"Файл {path_to_file} не .xlsx файл, возвращен пустой список.")
             return []
 
     except FileNotFoundError as ex:
         logger.error(f"Файл {path_to_file} не найден. Произошла ошибка: {ex}")
-        print(f"Файл {path_to_file} не найден. Произошла ошибка: {ex}")
+        print(f"Файл {path_to_file} не найден, возвращен пустой список")
         return []
 
     except Exception as ex:
         logger.error(f"Это общее исключение.{ex}")
         print(f"Это общее исключение.{ex}")
 
-    # return []
+    return []
 
 
-print(read_excel_file(path_to_file="../data/transactions_excel.xlsx"))
+# print(read_excel_file(path_to_file="../data/transactions_excel.xlsx"))
 # print(read_excel_file(path_to_file="../data/empty.xlsx"))  # вызов функции для пустого файла
 # print(read_excel_file(path_to_file="../data/operations.json")) # вызов функции с не Excel файлом
 # print(read_excel_file(path_to_file="transactions_excel.xlsx"))  # вызов функции, если путь до файла указан не верно
