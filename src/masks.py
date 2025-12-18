@@ -15,7 +15,7 @@ def get_mask_card_number(card_number: int) -> str:
     :return: возвращает замаскированный номер карты - маску в виде строки формата XXXX XX** **** XXXX.
     """
     try:
-        logger.info('Начала выполняться функция get_mask_card_number')
+        logger.info("Начала выполняться функция get_mask_card_number")
         if card_number > 0:
             card_number_str = str(card_number)  # меняем тип c числа на строку
             if len(card_number_str) == 16:
@@ -32,11 +32,11 @@ def get_mask_card_number(card_number: int) -> str:
 
     except TypeError as ex:
         logger.error(f"Номер карты не целое число. Произошла ошибка: {ex}")
-        print(f"Номер карты не целое число. Произошла ошибка: {ex}")
+        return f"Номер карты не целое число. Произошла ошибка: {ex}"
 
     except Exception as ex:
         logger.error(f"Это общее исключение. Произошла ошибка: {ex}")
-        print(f"Это общее исключение. Произошла ошибка: {ex}")
+        return f"Это общее исключение. Произошла ошибка: {ex}"
 
 
 def get_mask_account(account_number: int) -> str:
@@ -46,7 +46,7 @@ def get_mask_account(account_number: int) -> str:
     :return: возвращает замаскированный номер счета - маску в виде строки формата ** XXXX.
     """
     try:
-        logger.info('Начала выполняться функция get_mask_account')
+        logger.info("Начала выполняться функция get_mask_account")
         if account_number > 0:
             account_number_str = str(account_number)  # меняем тип c числа на строку
             if len(account_number_str) > 6:
@@ -62,11 +62,11 @@ def get_mask_account(account_number: int) -> str:
 
     except TypeError as ex:
         logger.error(f"Номер счета не целое число. Произошла ошибка: {ex}")
-        print(f"Номер карты не целое число. Произошла ошибка: {ex}")
+        return f"Номер карты не целое число. Произошла ошибка: {ex}"
 
     except Exception as ex:
         logger.error(f"Это общее исключение. Произошла ошибка: {ex}")
-        print(f"Это общее исключение. Произошла ошибка: {ex}")
+        return f"Это общее исключение. Произошла ошибка: {ex}"
 
 
 # print(get_mask_card_number(1234567891234567))  # Введено число 16 цифр

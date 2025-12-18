@@ -20,7 +20,7 @@ def read_json_file(path_to_file: str) -> list:
     :return: список
     """
 
-    logger.info('Начала выполняться функция read_json_file')
+    logger.info("Начала выполняться функция read_json_file")
     try:
         with open(path_to_file, encoding="utf-8") as f:  # Открываем файл и читаем строки
             logger.info(f"Открываем файл {path_to_file} и читаем строки")
@@ -32,7 +32,7 @@ def read_json_file(path_to_file: str) -> list:
             f.seek(0)  # перемещаем указатель чтения/записи в начало файла
             list_of_transactions = json.load(f)
             if type(list_of_transactions) is list:
-                logger.info('Функция read_json_file возвратила список словарей с данными о финансовых транзакциях.')
+                logger.info("Функция read_json_file возвратила список словарей с данными о финансовых транзакциях.")
                 return list_of_transactions
             else:
                 logger.info(
@@ -63,14 +63,14 @@ def transaction_amount(transaction: dict) -> float:
     :return: возвращает сумму транзакции (ключ amount) в рублях, тип данных float
     """
 
-    logger.info('Начала выполняться функция transaction_amount')
+    logger.info("Начала выполняться функция transaction_amount")
     try:
         if transaction["operationAmount"]["currency"]["code"] == "RUB":
-            logger.info('Получаем сумму транзакции в рублях')
+            logger.info("Получаем сумму транзакции в рублях")
             amount_rub = float((transaction.get("operationAmount")).get("amount"))  # получаем сумму в рублях
 
         else:
-            logger.info('Получаем сумму транзакции не в рублях')
+            logger.info("Получаем сумму транзакции не в рублях")
             amount_no_rub = (transaction.get("operationAmount")).get("amount")  # получаем сумму не в рублях
             currency = ((transaction.get("operationAmount")).get("currency")).get("code")  # получаем тип валюты
             # Вызываем функцию конвертации валюты
