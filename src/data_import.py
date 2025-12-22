@@ -4,9 +4,12 @@ import os
 
 import pandas as pd
 
+from pathlib import Path
+log_path = Path(__file__).parent.parent / "logs" / "data_import.log"
+
 logger = logging.getLogger("data_import")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler("../logs/data_import.log", encoding="utf-8", mode="w")
+file_handler = logging.FileHandler(log_path, encoding="utf-8", mode="w")
 file_formatter = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
