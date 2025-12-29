@@ -95,11 +95,11 @@ def transaction_amount(transaction: dict) -> float:
         logger.error(f"Это общее исключение. Произошла ошибка: {ex}")
         raise Exception(f"Это общее исключение. Произошла ошибка: {ex}")
 
-
-print(read_json_file(path_to_file="../data/operations.json"))
-print(read_json_file(path_to_file="../data/empty.json"))  # вызов функции для пустого файла
-print(read_json_file(path_to_file="../data/not_list.json"))  # вызов функции для файла, содержащего не список
-print(read_json_file(path_to_file="operations.json"))  # вызов функции, если путь до файла указан не верно
+if __name__ == "__main__":
+    print(read_json_file(path_to_file="../data/operations.json"))
+    print(read_json_file(path_to_file="../data/empty.json"))  # вызов функции для пустого файла
+    print(read_json_file(path_to_file="../data/not_list.json"))  # вызов функции для файла, содержащего не список
+    print(read_json_file(path_to_file="operations.json"))  # вызов функции, если путь до файла указан не верно
 
 # transactions_2 = [
 #     {

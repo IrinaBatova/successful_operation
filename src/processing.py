@@ -1,3 +1,9 @@
+import re
+from collections import Counter
+from utils import read_json_file
+from pathlib import Path
+
+
 def filter_by_state(list_of_dictionaries: list, state: str = "EXECUTED") -> list:
     """
     Функция отбора словарей по значению ключа "state":
@@ -23,24 +29,63 @@ def sort_by_date(list_of_dictionaries: list, ascending: bool = True) -> list:
     - return: возвращает новый список словарей, отсортированный по дате (date).
     """
 
-    list_of_dictionaries.sort(key=lambda x: x.get("date", 0), reverse=ascending)
+    list_of_dictionaries.sort(key=lambda x: x.get("date", ""), reverse=ascending)
 
     return list_of_dictionaries
 
 
-# Вызов функции отбора словарей по значению ключа "state"
+def process_bank_search(data: list[dict], search: str) -> list[dict]:
+    """
+    Функция отбора словарей где в значении ключа "description" есть, заданная строка:
+    - param data: принимает список словарей;
+    - param search: принимает, заданную для поиска строку;
+    - return: возвращает новый список словарей, содержащий только те словари, у которых ключ description содержит
+     заданную для поиска строку.
+    """
 
-# list_of_dictionaries = [
-#         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-#         {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
-#         {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
-#         {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
-#         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
-#         {"id": 594226727, "state": "CANCELED", "date": ""},
-#     ]
-#
-#
-# print(filter_by_state(list_of_dictionaries))
-# print(filter_by_state(list_of_dictionaries, state="CANCEL"))
-# print(sort_by_date(list_of_dictionaries))
-# print(sort_by_date(list_of_dictionaries, ascending=False))
+    new_list_of_dictionaries = []
+
+    for operation in data:
+        if 'description' in operation and re.search(search, operation['description']):
+            new_list_of_dictionaries.append(operation)
+    return new_list_of_dictionaries
+
+
+def process_bank_operations(data: list[dict], categories: list) -> dict:
+    """
+    Функция создает словарь, где ключи это названия категорий, а значения это количество операций в каждой категории:
+    - param data: принимает список словарей;
+    - param categories: принимает список категорий операций;
+    - return: возвращает словарь, в котором ключи — названия категорий, значения — количество операций в каждой категории.
+    """
+
+    # Используем генератор списков: element из списка data при совпадении с 'description' добавляется в список list_categories
+    list_categories = [element for element in categories for operation in data if
+                       'description' in operation and element == operation['description']]
+
+    # Преобразуем объект Counter в обычный словарь
+    dict_categories = dict(Counter(list_categories))
+
+    return dict_categories
+
+
+if __name__ == "__main__":
+    file_path = str(Path(__file__).parent.parent / "data" / "operations.json")
+    list_of_dictionaries_ = read_json_file(path_to_file=file_path)
+
+    # Вызов функции отбора словарей по значению ключа "state"
+    print(filter_by_state(list_of_dictionaries_))
+    print(filter_by_state(list_of_dictionaries_, state="CANCELED"))
+
+    # Вызов функции сортировки словарей по значению ключа "date"
+    print(sort_by_date(list_of_dictionaries_))
+    print(sort_by_date(list_of_dictionaries_, ascending=False))
+
+    # Вызов функции отбора словарей где в значении ключа "description" есть, заданная строка
+    search_bar = "Перевод со счета на счет"
+    print(process_bank_search(list_of_dictionaries_, search_bar))
+
+    # Вызов функции возвращающей словарь, где ключи: названия категорий, значения: количество операций каждой категории
+    categories_list = ["Перевод со счета на счет", "Открытие вклада", "Перевод организации",
+                       "Перевод с карты на карту", "Перевод с карты на счет"]
+    print(process_bank_operations(list_of_dictionaries_, categories_list))
