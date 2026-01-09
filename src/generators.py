@@ -17,7 +17,7 @@ def filter_by_currency(list_transactions: list, currency: str) -> Iterator:
 
 def find_value(dictionary: dict, target_value: Any ) -> Any:
     """
-    Функция возвращает, заданное значение, если оно есть в заданном словаре
+    Функция возвращает заданное значение, если оно есть в заданном словаре
     :param dictionary: принимает словарь (может быть с вложенными словарями)
     :param target_value: принимает значение, которое нужно найти в заданном словаре
     :return: возвращает заданное значение, если оно есть в словаре, если нет возвращает None
@@ -66,19 +66,19 @@ if __name__ == "__main__":
     print(file_path)
 
     # # Загружаем json файл
-    # list_transactions = utils.read_json_file(path_to_file=f"{file_path}/operations.json")
+    # list_transactions_ = utils.read_json_file(path_to_file=f"{file_path}/operations.json")
     # print(list_transactions)
 
     # Загружаем csv файл
-    # list_transactions = data_import.read_csv_file(path_to_file=f"{file_path}/transactions.csv")
+    # list_transactions_ = data_import.read_csv_file(path_to_file=f"{file_path}/transactions.csv")
 
     # # Загружаем xlsx файл
-    list_transactions = data_import.read_excel_file(path_to_file=f"{file_path}/transactions_excel.xlsx")
+    list_transactions_ = data_import.read_excel_file(path_to_file=f"{file_path}/transactions_excel.xlsx")
 
     # Вызов функции filter_by_currency
-    usd_transactions = filter_by_currency(list_transactions, "RUB")
+    rub_transactions = filter_by_currency(list_transactions_, "RUB")
     try:
         for _ in range(25):
-            print(next(usd_transactions))
+            print(next(rub_transactions))
     except StopIteration:
         print("Достигнут конец итератора")
