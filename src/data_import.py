@@ -67,12 +67,6 @@ def read_csv_file(path_to_file: str) -> list:
     return []
 
 
-# print(read_csv_file(path_to_file="../data/transactions.csv"))
-# print(read_csv_file(path_to_file="../data/empty.csv"))  # вызов функции для пустого файла
-# print(read_csv_file(path_to_file="../data/operations.json")) # вызов функции с не csv файлом
-# print(read_csv_file(path_to_file="transactions.csv"))  # вызов функции, если путь до файла указан не верно
-
-
 def read_excel_file(path_to_file: str) -> list:
     """
     Функция, которая принимает на вход путь до Excel-файла и возвращает список словарей с данными о
@@ -115,8 +109,13 @@ def read_excel_file(path_to_file: str) -> list:
 
     return []
 
-
-# print(read_excel_file(path_to_file="../data/transactions_excel.xlsx"))
-# print(read_excel_file(path_to_file="../data/empty.xlsx"))  # вызов функции для пустого файла
-# print(read_excel_file(path_to_file="../data/operations.json")) # вызов функции с не Excel файлом
-# print(read_excel_file(path_to_file="transactions_excel.xlsx"))  # вызов функции, если путь до файла указан не верно
+if __name__ == "__main__":
+    print(read_csv_file(path_to_file="../data/transactions.csv"))
+    # print(read_csv_file(path_to_file="../data/empty.csv"))  # вызов функции для пустого файла
+    # print(read_csv_file(path_to_file="../data/operations.json")) # вызов функции с не csv файлом
+    # print(read_csv_file(path_to_file="transactions.csv"))  # вызов функции, если путь до файла указан не верно
+    #
+    # print(read_excel_file(path_to_file="../data/transactions_excel.xlsx"))
+    # print(read_excel_file(path_to_file="../data/empty.xlsx"))  # вызов функции для пустого файла
+    # print(read_excel_file(path_to_file="../data/operations.json")) # вызов функции с не Excel файлом
+    # print(read_excel_file(path_to_file="transactions_excel.xlsx"))  # вызов функции, если путь до файла указан не верно
