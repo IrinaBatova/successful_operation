@@ -30,7 +30,7 @@ def read_json_file(path_to_file: str) -> list:
             first_char = f.read(1)
             if not first_char:
                 logger.info(f"Файл {path_to_file} пустой, возвращен пустой список.")
-                print("Файл пустой")
+                print(f"Файл {path_to_file} пустой")
                 return []
             f.seek(0)  # перемещаем указатель чтения/записи в начало файла
             list_of_transactions = json.load(f)
@@ -41,6 +41,7 @@ def read_json_file(path_to_file: str) -> list:
                 logger.info(
                     f"Файл {path_to_file} не содержит список, функция read_json_file возвратила пустой список."
                 )
+                print(f"Файл {path_to_file} не содержит список")
                 return []
 
     except FileNotFoundError as ex:
@@ -96,47 +97,8 @@ def transaction_amount(transaction: dict) -> float:
         raise Exception(f"Это общее исключение. Произошла ошибка: {ex}")
 
 if __name__ == "__main__":
-    print(read_json_file(path_to_file="../data/operations.json"))
-    print(read_json_file(path_to_file="../data/empty.json"))  # вызов функции для пустого файла
-    print(read_json_file(path_to_file="../data/not_list.json"))  # вызов функции для файла, содержащего не список
+    file_path = str(Path(__file__).parent.parent / "data")
+    print(read_json_file(path_to_file=f"{file_path}/operations.json"))
+    print(read_json_file(path_to_file=f"{file_path}/empty.json"))  # вызов функции для пустого файла
+    print(read_json_file(path_to_file=f"{file_path}/not_list.json"))  # вызов функции для файла, содержащего не список
     print(read_json_file(path_to_file="operations.json"))  # вызов функции, если путь до файла указан не верно
-
-# transactions_2 = [
-#     {
-#         "id": 441945886,
-#         "state": "EXECUTED",
-#         "date": "2019-08-26T10:50:58.294041",
-#         "operationAmount": {
-#             "amount": "31957.58",
-#             "currency": {
-#                 "name": "руб.",
-#                 "code": "RUB"
-#             }
-#         },
-#         "description": "Перевод организации",
-#         "from": "Maestro 1596837868705199",
-#         "to": "Счет 64686473678894779589"
-#     },
-#     {
-#         "id": 41428829,
-#         "state": "EXECUTED",
-#         "date": "2019-07-03T18:35:29.512364",
-#         "operationAmount": {
-#             "amount": "8221.37",
-#             "currency": {
-#                 "name": "USD",
-#                 "code": "USD"
-#             }
-#         },
-#         "description": "Перевод организации",
-#         "from": "MasterCard 7158300734726758",
-#         "to": "Счет 35383033474447895560"
-#     }
-# ]
-#
-# for el in transactions_2:
-#     p = transaction_amount(el)
-#     print(p)
-#     # print(el)
-
-# if os.path.isfile(path_to_file): # определяем, существует ли файл
