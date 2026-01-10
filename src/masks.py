@@ -72,12 +72,13 @@ def get_mask_account(account_number: str) -> str:
         return f"Это общее исключение. Произошла ошибка: {ex}"
 
 
-print(get_mask_card_number("1234567891234567"))  # Введено число 16 цифр
-# print(get_mask_card_number(123456789))  # Введено число не 16 цифр
-# print(get_mask_card_number(-123456789))  # Введено число < 0
-# print(get_mask_card_number('1234567891234567'))  # Введено не целое число
-#
-# print(get_mask_account(123456789))  # Введено число больше 6 цифр
-# print(get_mask_account(12345))  # Введено число меньше 6 цифр
-# print(get_mask_account(-12345))  # Введено число < 0
-# print(get_mask_account('123456789'))  # Введено не целое число
+if __name__ == "__main__":
+    print(get_mask_card_number("1234567891234567"))  # Введено число 16 цифр
+    # print(get_mask_card_number(123456789))  # Введено число не 16 цифр
+    # print(get_mask_card_number(-123456789))  # Введено число < 0
+    # print(get_mask_card_number('1234567891234567'))  # Введено не целое число
+    #
+    # print(get_mask_account(123456789))  # Введено число больше 6 цифр
+    # print(get_mask_account(12345))  # Введено число меньше 6 цифр
+    # print(get_mask_account(-12345))  # Введено число < 0
+    # print(get_mask_account('123456789'))  # Введено не целое число
