@@ -1,11 +1,12 @@
 import pytest
 
-from src.processing import filter_by_state, sort_by_date
+from src.processing import filter_by_state, process_bank_operations, process_bank_search, sort_by_date
 
 # Тестирование функции filter_by_state
 
-
 # С применением фикстур
+
+
 def test_filter_by_state(list_of_dictionaries: list, new_list_of_dictionaries: list) -> None:
     assert filter_by_state(list_of_dictionaries) == new_list_of_dictionaries
 
@@ -86,3 +87,65 @@ def test_sort_by_same_date_f(list_of_dictionaries_same_date: list, new_list_of_d
 
 def test_sort_by_data_empty() -> None:
     assert sort_by_date([]) == []
+
+
+# Тестирование функции process_bank_search
+
+# С применением параметризации
+
+list_dict_description = [
+    {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364", "description": "Перевод организации"},
+    {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "description": "Перевод с карты на карту",
+    },
+    {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689", "description": "Открытие вклада"},
+    {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441", "description": ""},
+]
+
+
+new_list_dict_1 = [
+    {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364", "description": "Перевод организации"}
+]
+new_list_dict_2 = [
+    {
+        "id": 939719570,
+        "state": "EXECUTED",
+        "date": "2018-06-30T02:08:58.425572",
+        "description": "Перевод с карты на карту",
+    }
+]
+new_list_dict_3 = [
+    {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689", "description": "Открытие вклада"}
+]
+
+
+@pytest.mark.parametrize(
+    "list_dist, search, new_list_dict",
+    [
+        (list_dict_description, "организации", new_list_dict_1),
+        (list_dict_description, "карты", new_list_dict_2),
+        (list_dict_description, "открытие", new_list_dict_3),
+    ],
+)
+def test_process_bank_search(list_dist: list[dict], search: str, new_list_dict: list[dict]) -> None:
+    assert process_bank_search(list_dist, search) == new_list_dict
+
+
+categories_list_ = [
+    "Перевод со счета на счет",
+    "Открытие вклада",
+    "Перевод организации",
+    "Перевод с карты на карту",
+    "Перевод с карты на счет",
+]
+new_dict_ = {"Открытие вклада": 1, "Перевод организации": 1, "Перевод с карты на карту": 1}
+
+
+@pytest.mark.parametrize(
+    "list_dist, categories_list, new_dict", [(list_dict_description, categories_list_, new_dict_)]
+)
+def test_process_bank_operations(list_dist: list[dict], categories_list: list, new_dict: dict) -> None:
+    assert process_bank_operations(list_dist, categories_list) == new_dict

@@ -1,6 +1,6 @@
 import logging
-
 from pathlib import Path
+
 log_path = Path(__file__).parent.parent / "logs" / "masks.log"
 
 logger = logging.getLogger("masks")

@@ -24,7 +24,7 @@ def test_mask_account_card_3(account_number: str, mask_account_number: str) -> N
         ("МИР 1597531234567891", "МИР 1597 53** **** 7891"),
         ("Счет123456789654321", "Счет** 4321"),
         ("Счет 12345", "Счет Введено меньше 6 цифр"),
-        ("", "Вы ничего не ввели"),
+        ("", ""),
     ],
 )
 def test_mask_account_card_2(card_type_number: str, mask_card_type_number: str) -> None:

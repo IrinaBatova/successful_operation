@@ -1,10 +1,10 @@
 import csv
 import logging
 import os
+from pathlib import Path
 
 import pandas as pd
 
-from pathlib import Path
 log_path = Path(__file__).parent.parent / "logs" / "data_import.log"
 
 logger = logging.getLogger("data_import")
@@ -109,6 +109,7 @@ def read_excel_file(path_to_file: str) -> list:
 
     return []
 
+
 if __name__ == "__main__":
     print(read_csv_file(path_to_file="../data/transactions.csv"))
     # print(read_csv_file(path_to_file="../data/empty.csv"))  # вызов функции для пустого файла
@@ -118,4 +119,4 @@ if __name__ == "__main__":
     # print(read_excel_file(path_to_file="../data/transactions_excel.xlsx"))
     # print(read_excel_file(path_to_file="../data/empty.xlsx"))  # вызов функции для пустого файла
     # print(read_excel_file(path_to_file="../data/operations.json")) # вызов функции с не Excel файлом
-    # print(read_excel_file(path_to_file="transactions_excel.xlsx"))  # вызов функции, если путь до файла указан не верно
+    # print(read_excel_file(path_to_file="transactions_excel.xlsx"))  # вызов функции, путь указан не верно

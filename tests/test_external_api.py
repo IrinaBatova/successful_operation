@@ -43,4 +43,3 @@ def test_currency_conversion_2() -> None:
             headers={"apikey": f"{api_key}"},
             data={},
         )
-

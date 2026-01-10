@@ -1,5 +1,6 @@
-from typing import Iterator, Any
 from pathlib import Path
+from typing import Any, Iterator
+
 from src import data_import, utils
 
 
@@ -15,7 +16,7 @@ def filter_by_currency(list_transactions: list, currency: str) -> Iterator:
         yield transaction
 
 
-def find_value(dictionary: dict, target_value: Any ) -> Any:
+def find_value(dictionary: dict, target_value: Any) -> Any:
     """
     Функция возвращает заданное значение, если оно есть в заданном словаре
     :param dictionary: принимает словарь (может быть с вложенными словарями)
@@ -59,24 +60,26 @@ def card_number_generator(start: int, stop: int) -> Iterator:
         formatted_number = f"{num_str[:4]} {num_str[4:8]} {num_str[8:12]} {num_str[12:]}"
         yield formatted_number
 
+
 if __name__ == "__main__":
 
     # Создаём путь к директории "data", находящейся в той же директории, что и текущий модуль
-    file_path = str(Path(__file__).parent.parent / "data")  # метод .parent возвращает родительскую директорию текущего файла
+    # метод .parent возвращает родительскую директорию текущего файла
+    file_path = str(Path(__file__).parent.parent / "data")
     print(file_path)
 
     # # Загружаем json файл
-    # list_transactions_ = utils.read_json_file(path_to_file=f"{file_path}/operations.json")
+    list_transactions_json = utils.read_json_file(path_to_file=f"{file_path}/operations.json")
     # print(list_transactions)
 
     # Загружаем csv файл
-    # list_transactions_ = data_import.read_csv_file(path_to_file=f"{file_path}/transactions.csv")
+    list_transactions_csv = data_import.read_csv_file(path_to_file=f"{file_path}/transactions.csv")
 
     # # Загружаем xlsx файл
-    list_transactions_ = data_import.read_excel_file(path_to_file=f"{file_path}/transactions_excel.xlsx")
+    list_transactions_xlsx = data_import.read_excel_file(path_to_file=f"{file_path}/transactions_excel.xlsx")
 
     # Вызов функции filter_by_currency
-    rub_transactions = filter_by_currency(list_transactions_, "RUB")
+    rub_transactions = filter_by_currency(list_transactions_xlsx, "RUB")
     try:
         for _ in range(25):
             print(next(rub_transactions))
