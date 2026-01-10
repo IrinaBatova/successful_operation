@@ -4,7 +4,6 @@ from unittest.mock import mock_open, patch
 
 import pandas as pd
 
-
 from src.data_import import read_csv_file, read_excel_file
 
 # Тестирование функции read_csv_file
@@ -100,5 +99,5 @@ def test_read_excel_file_3() -> None:
         assert read_excel_file("transactions_excel.xlsx") == []
 
 
-# if __name__ == "__main__":
-#     unittest.main()
+if __name__ == "__main__":
+    unittest.main()

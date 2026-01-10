@@ -6,15 +6,15 @@ def mask_account_card(card_or_account_number: str) -> str:
     Функция маскировки номера банковской карты
     :param card_or_account_number: принимает тип и номер карты или счета в виде строки
     :return: возвращает замаскированный номер карты или счета, маску в виде строки формата:
-     тип карты(счет) XXXX XX** **** XXXX.
+     тип карты(счет) XXXX XX** **** XXXX. Если card_or_account_number пустая строка,
+     возвращается пустая строка
     """
-
     # Создаем пустые списки
     card_or_account = []
     number = []
 
     if card_or_account_number == "":
-        return "Вы ничего не ввели"
+        return ""
     else:
         # Разделяем текст и цифры по спискам
         for symbol in card_or_account_number:
@@ -27,9 +27,16 @@ def mask_account_card(card_or_account_number: str) -> str:
 
         # В зависимости от того, номер счета или номер карты разделяем по маскам
         if card_or_account_str == "Счет " or card_or_account_str == "Счет":
-            number_str = masks.get_mask_account(int("".join(number)))
+            if number:
+                number_str = masks.get_mask_account("".join(number))
+                # number_str = masks.get_mask_account(int("".join(number)))
+            else:
+                number_str = ""
         else:
-            number_str = masks.get_mask_card_number(int("".join(number)))
+            if number:
+                number_str = masks.get_mask_card_number("".join(number))
+            else:
+                number_str = ""
 
         return card_or_account_str + number_str
 
