@@ -46,7 +46,10 @@ def currency_conversion(amount: str, currency: str) -> float:
     return 0.0
 
 
-# print(currency_conversion("8221.37", "USD"))
+
+if __name__ == "__main__":
+
+    print(currency_conversion("8221.37", "USD"))
 
 
 # Результат response.json() - {'success': True,

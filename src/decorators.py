@@ -76,17 +76,18 @@ def log(filename: Optional[str] = None) -> Callable[[Callable[..., Any]], Callab
     return decorator
 
 
-# # Пример использования декоратора log, если filename задан, логи выводятся в файл mylog.txt
-# @log(filename="../mylog.txt")
-# def my_function_1(x, y):
-#     return x / y
-#
-#
-# # Пример использования декоратора log, если filename не задан, логи выводятся в консоль
-# @log()
-# def my_function_2(x, y):
-#     return x + y
-#
-#
-# my_function_1(10, 5)
-# my_function_2(10, 5)
+if __name__ == "__main__":
+
+    # Пример использования декоратора log, если filename задан, логи выводятся в файл mylog.txt
+    @log(filename="../mylog.txt")
+    def my_function_1(x, y):
+        return x / y
+
+    # Пример использования декоратора log, если filename не задан, логи выводятся в консоль
+    @log()
+    def my_function_2(x, y):
+        return x + y
+
+
+    my_function_1(10, 5)
+    my_function_2(10, 5)

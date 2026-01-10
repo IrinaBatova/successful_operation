@@ -1,3 +1,8 @@
 
 
 
+
+[2026-01-10 20:24:24.139850] Starting function 'my_function_1' with arguments (10, 5) and {}
+[2026-01-10 20:24:24.139862] Finished function 'my_function_1' with result 2.0
+my_function_1 ok.
+Function execution time: 1.2e-05 seconds
