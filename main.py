@@ -1,5 +1,5 @@
 from pathlib import Path
-from src import utils, data_import, masks, generators, processing, widget
+from src import utils, data_import, generators, processing, widget
 
 
 # 1. Выбор файла определённого типа, содержащего данные о транзакциях
@@ -12,13 +12,19 @@ print(
     "3. Получить информацию о транзакциях из XLSX-файла\n"
 )
 
-menu_item = input("Пользователь:  ") # ответ пользователя
-menu_item = menu_item.replace(" ", "") # убираем пробелы, если они есть
+# menu_item = input("Пользователь:  ") # ответ пользователя
+# menu_item = menu_item.replace(" ", "") # убираем пробелы, если они есть
+#
+# while menu_item != "1" and menu_item != "2" and menu_item != "3":  # проверяем символы в строке
+#     print("\nПрограмма: Пункт меню выбран не корректно. Введите 1 или 2 или 3.\n")
+#     menu_item = input("Пользователь:  ")  # запрос пункта меню
+#     menu_item = menu_item.replace(" ", "")  # убираем пробелы, если они есть
 
-while menu_item != "1" and menu_item != "2" and menu_item != "3":  # проверяем символы в строке
+menu_item = input("Пользователь:  ").strip()  # убираем пробелы в начале и конце
+
+while menu_item not in {"1", "2", "3"}:  # используем множество для проверки
     print("\nПрограмма: Пункт меню выбран не корректно. Введите 1 или 2 или 3.\n")
-    menu_item = input("Пользователь:  ")  # запрос пункта меню
-    menu_item = menu_item.replace(" ", "")  # убираем пробелы, если они есть
+    menu_item = input("Пользователь:  ").strip()  # убираем пробелы в начале и конце
 
 # 1.1 Создаём путь к директории "data", находящейся в той же директории, что и текущий модуль
 file_path = str(Path(__file__).parent / "data")  # метод .parent возвращает родительскую директорию текущего файла
@@ -144,10 +150,17 @@ else:
                 # Проверяем check_from на истинность (не пустое значение)
                 check_transactions = f"{check_from} -> {check_to}" if check_from else check_to
 
-                amount_key = "operationAmount" if menu_item == "1" else "amount" # ключ суммы
-                currency_key = "currency" if menu_item == "1" else "currency_name" # ключ валюты
-                sum_transactions = transaction[amount_key]["amount"]
-                currency = transaction[amount_key][currency_key]
+                if menu_item == "1":
+                    sum_transactions = transaction["operationAmount"]["amount"]
+                    currency = transaction["operationAmount"]["currency"]["name"]
+                else:
+                    sum_transactions = transaction["amount"]
+                    currency = transaction["currency_name"]
+
+                # amount_key = "operationAmount" if menu_item == "1" else "amount" # ключ суммы
+                # currency_key = "currency" if menu_item == "1" else "currency_name" # ключ валюты
+                # sum_transactions = transaction[amount_key]["amount"]
+                # currency = transaction[amount_key][currency_key]
 
                 print(
                     f"{date_transactions} {description}\n{check_transactions}\nСумма: {sum_transactions} {currency}\n")
