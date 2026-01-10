@@ -1,9 +1,9 @@
 import json
 import logging
+from pathlib import Path
 
 from src import external_api
 
-from pathlib import Path
 log_path = Path(__file__).parent.parent / "logs" / "utils.log"
 
 logger = logging.getLogger("utils")
@@ -69,6 +69,8 @@ def transaction_amount(transaction: dict) -> float:
 
     logger.info("Начала выполняться функция transaction_amount")
     try:
+        # operation_amount = transaction.get("operationAmount")
+        # if operation_amount and operation_amount.get("currency") and operation_amount["currency"].get("code") == "RUB":
         if transaction["operationAmount"]["currency"]["code"] == "RUB":
             logger.info("Получаем сумму транзакции в рублях")
             amount_rub = float((transaction.get("operationAmount")).get("amount"))  # получаем сумму в рублях
@@ -96,9 +98,33 @@ def transaction_amount(transaction: dict) -> float:
         logger.error(f"Это общее исключение. Произошла ошибка: {ex}")
         raise Exception(f"Это общее исключение. Произошла ошибка: {ex}")
 
+
 if __name__ == "__main__":
     file_path = str(Path(__file__).parent.parent / "data")
     print(read_json_file(path_to_file=f"{file_path}/operations.json"))
     print(read_json_file(path_to_file=f"{file_path}/empty.json"))  # вызов функции для пустого файла
     print(read_json_file(path_to_file=f"{file_path}/not_list.json"))  # вызов функции для файла, содержащего не список
     print(read_json_file(path_to_file="operations.json"))  # вызов функции, если путь до файла указан не верно
+
+transactions_utils_rub = {
+    "id": 441945886,
+    "state": "EXECUTED",
+    "date": "2019-08-26T10:50:58.294041",
+    "operationAmount": {"amount": "31957.58", "currency": {"name": "руб.", "code": "RUB"}},
+    "description": "Перевод организации",
+    "from": "Maestro 1596837868705199",
+    "to": "Счет 64686473678894779589",
+}
+
+transactions_utils_usd = {
+    "id": 41428829,
+    "state": "EXECUTED",
+    "date": "2019-07-03T18:35:29.512364",
+    "operationAmount": {"amount": "8221.37", "currency": {"name": "USD", "code": "USD"}},
+    "description": "Перевод организации",
+    "from": "MasterCard 7158300734726758",
+    "to": "Счет 35383033474447895560",
+}
+
+# print(transaction_amount(transactions_utils_rub))
+# print(transaction_amount(transactions_utils_usd))

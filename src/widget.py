@@ -1,5 +1,6 @@
 from src import masks
 
+
 def mask_account_card(card_or_account_number: str) -> str:
     """
     Функция маскировки номера банковской карты
